@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI mailer</title>
+  </head>
+  <body>
+    <h1>AI mailer</h1>
+    <form onsubmit="handleValidationAndSendRequest(event)" id="email-form">
+      <div>
+        <p>Receiver email address</p>
+        <input type="text" id="receiver-email" />
+      </div>
+      <div>
+        <p>Mail topic</p>
+        <input type="text" id="mail-topic" />
+      </div>
+      <button type="submit">Process</button>
+    </form>
+    <script src="app.js"></script>
+  </body>
+</html>
