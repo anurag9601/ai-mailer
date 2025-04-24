@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = startKafkaConsumer;
 const llm_1 = __importDefault(require("../services/llm"));
+const socket_1 = require("../services/socket");
 function startKafkaConsumer(kafka) {
     return __awaiter(this, void 0, void 0, function* () {
         const consumer = kafka.consumer({ groupId: "send-email-group" });
@@ -26,7 +27,7 @@ function startKafkaConsumer(kafka) {
                     if (!message.value)
                         return;
                     const AIResponse = yield (0, llm_1.default)(message.value.toString());
-                    console.log("AIResponse", AIResponse);
+                    socket_1.io.emit("ai-response", AIResponse);
                 }
                 catch (error) {
                     console.log("Something went wrong in consumer while consuming the message.");

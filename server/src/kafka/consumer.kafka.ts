@@ -1,5 +1,6 @@
 import { Kafka } from "kafkajs";
 import AITextGeneration from "../services/llm";
+import { io } from "../services/socket";
 
 export default async function startKafkaConsumer(kafka: Kafka) {
 
@@ -17,7 +18,7 @@ export default async function startKafkaConsumer(kafka: Kafka) {
 
                 const AIResponse = await AITextGeneration(message.value.toString() as string);
 
-                console.log("AIResponse", AIResponse);
+                io.emit("ai-response", AIResponse);
             } catch (error) {
                 console.log("Something went wrong in consumer while consuming the message.");
             }

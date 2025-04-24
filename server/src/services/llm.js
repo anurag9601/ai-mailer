@@ -1,19 +1,9 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 const genai_1 = require("@google/genai");
-function AITextGeneration(data) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const client = new genai_1.GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
-        const SYSTEM_INSTRUCTION = `
+async function AITextGeneration(data) {
+    const client = new genai_1.GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+    const SYSTEM_INSTRUCTION = `
     You are an AI email-writing assistant designed to compose professional, natural, and human-like emails with appropriate tone, emotional intelligence, and clarity. Your role is to take structured prompts and return a well-written email that reflects real human communication.
 
     Input Format:
@@ -60,17 +50,16 @@ function AITextGeneration(data) {
         "improvement": "Including your name at the end and mentioning if any urgent tasks need to be handled in your absence would make the email more complete."
     }
     `;
-        const response = yield client.models.generateContent({
-            model: "gemini-2.0-flash",
-            contents: data,
-            config: {
-                maxOutputTokens: 500,
-                temperature: 1,
-                systemInstruction: SYSTEM_INSTRUCTION
-            }
-        });
-        return response.text;
+    const response = await client.models.generateContent({
+        model: "gemini-2.0-flash",
+        contents: data,
+        config: {
+            maxOutputTokens: 500,
+            temperature: 1,
+            systemInstruction: SYSTEM_INSTRUCTION
+        }
     });
+    return response.text;
 }
 ;
 exports.default = AITextGeneration;

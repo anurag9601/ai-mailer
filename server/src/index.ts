@@ -3,12 +3,10 @@ import dotenv from "dotenv";
 import cors from "cors";
 import sendMailRoute from "./routes/sendmail.route";
 import { connectKafka } from "./kafka/kafka";
+import { app, server } from "./services/socket";
 
 //configuring dotenv for availing all the environment variable to the server
 dotenv.config();
-
-//initialized express app
-const app = express();
 
 //enabling cors (cross origin resource sharing) to make request other urls on the server
 app.use(cors());
@@ -27,7 +25,7 @@ app.use("/api/email", sendMailRoute);
 const port = process.env.PORT || 3000;
 
 //listing express server on port 3000 now our server can accept all requests on this port
-app.listen(port, async () => {
+server.listen(port, async () => {
     console.log(`Express server is running on port ${port}`);
     await connectKafka();
 });
