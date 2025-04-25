@@ -3,23 +3,126 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
-    <title>AI mailer</title>
+    <link rel="stylesheet" href="index.css" />
+    <title>Document</title>
   </head>
   <body>
-    <h1>AI mailer</h1>
-    <form onsubmit="handleValidationAndSendRequest(event)" id="email-form">
-      <div>
-        <p>Receiver email address</p>
-        <input type="text" id="receiver-email" />
+    <div class="page-container">
+      <h1>Welcome to AI Mailer</h1>
+      <p class="welcome-text">
+        AI Mailer helps you send emails to anyone directly from your own email
+        ID—securely and reliably. You don’t need to log in using your actual
+        email password. Instead, we recommend using a secondary app password for
+        added safety.
+      </p>
+      <p class="instruction">
+        If you're unfamiliar with how to generate an app password, don't worry
+        comprehensive <span id="documentationBtn">documentation</span> is
+        available to guide you through the process.
+      </p>
+      <form id="login-form" onsubmit="onFormSubmit(event)">
+        <div class="form-input-field">
+          <label>Email 📭</label>
+          <input type="email" id="email-input" onchange="formValidation()" />
+          <p class="error" id="email-error"></p>
+        </div>
+        <div class="form-input-field">
+          <label>app password (not your real password) 🔑</label>
+          <input type="text" id="pass-input" onchange="formValidation()" />
+          <p class="error" id="pass-error"></p>
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+      <p class="instruction">
+        Why do we ask for this login? It enables us to automate your
+        email-sending process according to your preferences, making the
+        experience seamless and efficient.
+      </p>
+      <p class="instruction">
+        Just below, you’ll find a form where you can safely enter your email ID
+        and app password (not your real password). Rest assured your credentials
+        remain private and secure.
+      </p>
+      <div id="create-pass-docs">
+        <ul class="docs">
+          <h5>Introduction to App Passwords in Google Workspace</h5>
+          <li>App passwords enhance security (2FA bypass)</li>
+          <li>Needed for legacy apps not supporting modern auth (OAuth)</li>
+          <li>Example: Using Thunderbird with Gmail account</li>
+        </ul>
+        <ul class="docs">
+          <h5>Prerequisites: Enabling 2-Step Verification</h5>
+          <li>2-Step Verification (2SV) must be active for the user</li>
+          <li>Security risk of disabling 2SV</li>
+          <li>Step-by-step guide to enable 2SV</li>
+          <li>Navigate to Google Account Security settings</li>
+          <li>Choose a verification method (SMS, authenticator app)</li>
+          <li>Confirm recovery options</li>
+        </ul>
+        <ul class="docs">
+          <h5>Accessing the App Passwords Settings</h5>
+          <li>Navigating to the app passwords section in Google Account</li>
+          <li>
+            Direct link:
+            <a href="https://myaccount.google.com/apppasswords" target="_blank"
+              >myaccount.google.com/apppasswords</a
+            >
+          </li>
+          <li>Alternative: Google Account > Security > App passwords</li>
+          <li>
+            Note: "App passwords" option unavailable if 2-Step Verification is
+            off
+          </li>
+        </ul>
+        <ul class="docs">
+          <h5>Generating a New App Password</h5>
+          <li>
+            Select the app (e.g., Mail, Calendar, Other) from the dropdown
+          </li>
+          <li>Select the device (e.g., Windows Computer, iPhone, Other)</li>
+          <li>Click "Generate" to create a unique password</li>
+          <li>
+            Example App Names: "Thunderbird Email", "Office365 Calendar Sync"
+          </li>
+          <li>Google generates a 16-character app password</li>
+        </ul>
+        <ul class="docs">
+          <h5>Using the App Password</h5>
+          <li>Replace your regular Google account password</li>
+          <li>Enter the 16-character app password in the app</li>
+          <li>Store securely (password manager)</li>
+          <li>
+            Example: Thunderbird prompts for password > paste app password
+          </li>
+        </ul>
+        <ul class="docs">
+          <h5>Managing and Revoking App Passwords</h5>
+          <li>List of generated app passwords</li>
+          <li>Revoke individual app passwords</li>
+          <li>Security implications of revoking a password</li>
+          <li>
+            Example: Revoking "Thunderbird Email" after switching mail client
+          </li>
+          <li>Record of recent revocations (last 7 days)</li>
+        </ul>
+        <ul class="docs">
+          <h5>Troubleshooting Common Issues</h5>
+          <li>
+            "Invalid credentials" error: Ensure correct app password entered
+          </li>
+          <li>App password not working: Revoke and generate a new one</li>
+          <li>
+            Account locked: 2-Step Verification issue, follow Google's recovery
+            process
+          </li>
+          <li>App password option missing: 2-Step Verification not enabled</li>
+          <li>
+            Check "Less secure app access" setting (deprecated as of May 30,
+            2022)
+          </li>
+        </ul>
       </div>
-      <div>
-        <p>Mail topic</p>
-        <input type="text" id="mail-topic" />
-      </div>
-      <button type="submit">Process</button>
-    </form>
-    <p id="ai-response">AI response will be here</p>
-    <script src="app.js"></script>
+    </div>
+    <script src="./index.js"></script>
   </body>
 </html>
