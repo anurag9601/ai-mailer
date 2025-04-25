@@ -4,7 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="index.css" />
-    <title>Document</title>
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <title>AI mailer</title>
   </head>
   <body>
     <div class="page-container">
@@ -27,7 +28,7 @@
           <p class="error" id="email-error"></p>
         </div>
         <div class="form-input-field">
-          <label>app password (not your real password) 🔑</label>
+          <label>App password (not your real password) 🔑</label>
           <input type="text" id="pass-input" onchange="formValidation()" />
           <p class="error" id="pass-error"></p>
         </div>
@@ -45,13 +46,13 @@
       </p>
       <div id="create-pass-docs">
         <ul class="docs">
-          <h5>Introduction to App Passwords in Google Workspace</h5>
+          <h5>✅ Introduction to App Passwords in Google Workspace</h5>
           <li>App passwords enhance security (2FA bypass)</li>
           <li>Needed for legacy apps not supporting modern auth (OAuth)</li>
           <li>Example: Using Thunderbird with Gmail account</li>
         </ul>
         <ul class="docs">
-          <h5>Prerequisites: Enabling 2-Step Verification</h5>
+          <h5>✅ Prerequisites: Enabling 2-Step Verification</h5>
           <li>2-Step Verification (2SV) must be active for the user</li>
           <li>Security risk of disabling 2SV</li>
           <li>Step-by-step guide to enable 2SV</li>
@@ -60,7 +61,7 @@
           <li>Confirm recovery options</li>
         </ul>
         <ul class="docs">
-          <h5>Accessing the App Passwords Settings</h5>
+          <h5>✅ Accessing the App Passwords Settings</h5>
           <li>Navigating to the app passwords section in Google Account</li>
           <li>
             Direct link:
@@ -75,7 +76,7 @@
           </li>
         </ul>
         <ul class="docs">
-          <h5>Generating a New App Password</h5>
+          <h5>✅ Generating a New App Password</h5>
           <li>
             Select the app (e.g., Mail, Calendar, Other) from the dropdown
           </li>
@@ -87,7 +88,7 @@
           <li>Google generates a 16-character app password</li>
         </ul>
         <ul class="docs">
-          <h5>Using the App Password</h5>
+          <h5>✅ Using the App Password</h5>
           <li>Replace your regular Google account password</li>
           <li>Enter the 16-character app password in the app</li>
           <li>Store securely (password manager)</li>
@@ -96,7 +97,7 @@
           </li>
         </ul>
         <ul class="docs">
-          <h5>Managing and Revoking App Passwords</h5>
+          <h5>✅ Managing and Revoking App Passwords</h5>
           <li>List of generated app passwords</li>
           <li>Revoke individual app passwords</li>
           <li>Security implications of revoking a password</li>
@@ -106,7 +107,7 @@
           <li>Record of recent revocations (last 7 days)</li>
         </ul>
         <ul class="docs">
-          <h5>Troubleshooting Common Issues</h5>
+          <h5>✅ Troubleshooting Common Issues</h5>
           <li>
             "Invalid credentials" error: Ensure correct app password entered
           </li>

@@ -15,17 +15,25 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const cors_1 = __importDefault(require("cors"));
+const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const sendmail_route_1 = __importDefault(require("./routes/sendmail.route"));
+const auth_route_1 = __importDefault(require("./routes/auth.route"));
 const kafka_1 = require("./kafka/kafka");
 const socket_1 = require("./services/socket");
 //configuring dotenv for availing all the environment variable to the server
 dotenv_1.default.config();
 //enabling cors (cross origin resource sharing) to make request other urls on the server
-socket_1.app.use((0, cors_1.default)());
+socket_1.app.use((0, cors_1.default)({
+    "origin": ['http://127.0.0.1:5500'],
+    "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials: true
+}));
+socket_1.app.use((0, cookie_parser_1.default)());
 //this will help to accept urlencoded body of the request
 socket_1.app.use(express_1.default.urlencoded({ extended: false }));
 //this will accept json body of the request
 socket_1.app.use(express_1.default.json());
+socket_1.app.use("/api/user", auth_route_1.default);
 socket_1.app.use("/api/email", sendmail_route_1.default);
 //starting consumer for receiving kafka producer's works
 //seting value of port in the variable name port

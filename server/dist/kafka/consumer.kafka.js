@@ -22,15 +22,22 @@ function startKafkaConsumer(kafka) {
         yield consumer.subscribe({ topics: ["send-email-request"], fromBeginning: true });
         yield consumer.run({
             autoCommit: true,
-            eachMessage: (_a) => __awaiter(this, [_a], void 0, function* ({ message, pause }) {
-                try {
-                    if (!message.value)
-                        return;
-                    const AIResponse = yield (0, llm_1.default)(message.value.toString());
-                    socket_1.io.emit("ai-response", AIResponse);
-                }
-                catch (error) {
-                    console.log("Something went wrong in consumer while consuming the message.");
+            eachMessage: (_a) => __awaiter(this, [_a], void 0, function* ({ topic, message, pause }) {
+                if (topic === "send-email-request") {
+                    try {
+                        if (!message.value)
+                            return;
+                        const AIResponse = yield (0, llm_1.default)(message.value.toString());
+                        socket_1.io.emit("ai-response", AIResponse);
+                    }
+                    catch (error) {
+                        console.log("Something went wrong in consumer while consuming the message.");
+                        pause();
+                        const timeOut = setTimeout(() => {
+                            consumer.resume([{ topic: "send-email-request" }]);
+                            clearTimeout(timeOut);
+                        }, 30 * 1000);
+                    }
                 }
             })
         });

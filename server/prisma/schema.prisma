@@ -14,6 +14,15 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
+model Users {
+  id        Int          @id @default(autoincrement())
+  email     String       @unique
+  password  String
+  sendMails SendEmails[]
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+}
+
 model SendEmails {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
@@ -21,4 +30,6 @@ model SendEmails {
   sendTo    String
   topic     String
   email     String
+  User      Users?   @relation(fields: [usersId], references: [id])
+  usersId   Int?
 }

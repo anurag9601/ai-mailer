@@ -1,7 +1,10 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 import sendMailRoute from "./routes/sendmail.route";
+import authRoute from "./routes/auth.route";
+
 import { connectKafka } from "./kafka/kafka";
 import { app, server } from "./services/socket";
 
@@ -9,7 +12,13 @@ import { app, server } from "./services/socket";
 dotenv.config();
 
 //enabling cors (cross origin resource sharing) to make request other urls on the server
-app.use(cors());
+app.use(cors({
+    "origin": ['http://127.0.0.1:5500'],
+    "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials : true
+}));
+
+app.use(cookieParser());
 
 //this will help to accept urlencoded body of the request
 app.use(express.urlencoded({ extended: false }));
@@ -17,6 +26,7 @@ app.use(express.urlencoded({ extended: false }));
 //this will accept json body of the request
 app.use(express.json());
 
+app.use("/api/user", authRoute);
 app.use("/api/email", sendMailRoute);
 
 //starting consumer for receiving kafka producer's works

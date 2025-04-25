@@ -18,6 +18,17 @@ export async function connectKafkaAdmin(kafka: Kafka) {
         });
     }
 
+    if (!existingTopics.includes("user-registration")) {
+        await admin.createTopics({
+            topics: [
+                {
+                    topic: "user-registration",
+                    numPartitions: 1,
+                }
+            ]
+        })
+    }
+
     console.log("Admin connected successfully 🚀.");
 
     await admin.disconnect();

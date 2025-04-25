@@ -25,6 +25,16 @@ function connectKafkaAdmin(kafka) {
                 ],
             });
         }
+        if (!existingTopics.includes("user-registration")) {
+            yield admin.createTopics({
+                topics: [
+                    {
+                        topic: "user-registration",
+                        numPartitions: 1,
+                    }
+                ]
+            });
+        }
         console.log("Admin connected successfully 🚀.");
         yield admin.disconnect();
     });

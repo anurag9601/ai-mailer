@@ -1,6 +1,8 @@
 import { Kafka } from "kafkajs";
 import AITextGeneration from "../services/llm";
 import { io } from "../services/socket";
+import prismaClient from "../db";
+import { encrypt } from "../services/crypto";
 
 export default async function startKafkaConsumer(kafka: Kafka) {
 
@@ -12,21 +14,22 @@ export default async function startKafkaConsumer(kafka: Kafka) {
 
     await consumer.run({
         autoCommit: true,
-        eachMessage: async ({ message, pause }) => {
-            try {
-                if (!message.value) return;
+        eachMessage: async ({ topic, message, pause }) => {
+            if (topic === "send-email-request") {
+                try {
+                    if (!message.value) return;
 
-                const AIResponse = await AITextGeneration(message.value.toString() as string);
+                    const AIResponse = await AITextGeneration(message.value.toString() as string);
 
-                io.emit("ai-response", AIResponse);
-            } catch (error) {
-                console.log("Something went wrong in consumer while consuming the message.");
-                pause();
-                const timeOut = setTimeout(() => {
-                    consumer.resume([{ topic: "send-email-request" }]);
-                    clearTimeout(timeOut);
-                }, 30 * 1000);
-
+                    io.emit("ai-response", AIResponse);
+                } catch (error) {
+                    console.log("Something went wrong in consumer while consuming the message.");
+                    pause();
+                    const timeOut = setTimeout(() => {
+                        consumer.resume([{ topic: "send-email-request" }]);
+                        clearTimeout(timeOut);
+                    }, 30 * 1000);
+                }
             }
         }
     })
