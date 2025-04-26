@@ -29,6 +29,10 @@ html,body{
     font-family: "Winky Rough", sans-serif;
     font-size: 45px;
     text-align: center;
+    background: linear-gradient(140deg, #e9c46a, #2a9d8f);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .welcome-text{

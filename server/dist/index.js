@@ -24,8 +24,8 @@ const socket_1 = require("./services/socket");
 dotenv_1.default.config();
 //enabling cors (cross origin resource sharing) to make request other urls on the server
 socket_1.app.use((0, cors_1.default)({
-    "origin": ['http://127.0.0.1:5500'],
-    "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+    origin: ['http://localhost:5500', "http://127.0.0.1:5500"],
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true
 }));
 socket_1.app.use((0, cookie_parser_1.default)());

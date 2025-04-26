@@ -1,0 +1,228 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Patrick+Hand+SC&family=Sigmar&family=Winky+Rough:ital,wght@0,300..900;1,300..900&family=Winky+Sans:ital,wght@0,300..900;1,300..900&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,body{
+    min-height: 100dvh;
+    width: 100dvw;
+    display: flex;
+}
+
+.page-container{
+    flex: 1;
+    background-color: #0d1b2a;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 10%;
+    overflow-y: auto;
+    overflow-x: none;
+}
+
+.page-container h1{
+    font-family: "Winky Rough", sans-serif;
+    font-size: 45px;
+    text-align: center;
+    background: linear-gradient(140deg, #e9c46a, #2a9d8f);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}  
+
+.instruction-text{
+    margin-top: 10px;
+    font-family: "Winky Sans", sans-serif;
+    font-size: 17px;
+    text-align: start;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.instruction-text p span{
+    color: #ffbe0b;
+}
+
+#email-form{
+    margin-top: 10px;
+    border: 1px solid #f7ede2;
+    padding: 30px 20px;
+    border-radius: 10px;
+    max-width: 450px;
+    width: 100%;
+}
+
+.form-input-field{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-family: "Winky Sans", sans-serif;
+    margin-bottom: 5px;
+}
+
+.form-input-field label{
+    font-size: 15px;
+}
+
+.form-input-field input{
+    height: 35px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    padding: 0 15px;
+    font-size: 15px;
+    font-family: "Nunito", sans-serif;
+    font-weight: 600;
+    background-color: #dee2e6;
+    border: 1.5px solid #13315c;
+}
+
+.form-input-field input:focus{
+    border: 1.5px solid #8da9c4;
+}
+
+.form-input-field textarea{
+    height: 90px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    padding: 10px 15px;
+    font-size: 15px;
+    font-family: "Nunito", sans-serif;
+    font-weight: 600;
+    background-color: #dee2e6;
+    border: 1.5px solid #13315c;
+    resize: none;
+}
+
+.form-input-field textarea:focus{
+    border: 1.5px solid #8da9c4;
+}
+
+#email-form button{
+    width: 100%;
+    height: 40px;
+    border-radius: 7px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    font-family: "Winky Sans", sans-serif;
+    font-weight: 600;
+    color: #f7ede2;
+    background-color: #0582ca;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+#email-form button:hover{
+    opacity: .8;
+}
+
+#ai-response-container{
+    position: fixed;
+    background-color: #0d1b2a;
+    background-blend-mode: soft-light;
+    height: 100dvh;
+    width: 100dvw;
+    padding: 20px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    overflow-y: auto;
+}
+
+.ai-response::-webkit-scrollbar{
+    display: none;
+}
+
+.response{
+    height: 80%;
+    width: 80%;
+}
+
+.cancel-icon{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.cancel-icon button{
+    width: 120px;
+    height: 40px;
+    border-radius: 7px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    font-family: "Winky Sans", sans-serif;
+    font-weight: 600;
+    color: #f7ede2;
+    background-color: #0582ca;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.cancel-icon button:hover{
+    opacity: .8;
+}
+
+.response p{
+    font-family: "Winky Sans", sans-serif;
+}
+
+#ai-response{
+    display: none;
+    margin-top: 20px;
+}
+
+.response-text{
+    font-family: "Winky Rough", sans-serif;
+    font-size: 20px;
+    color: white;
+    margin-top: 10px;
+}
+
+#ai-response-sendTo{
+    font-size: 17px;
+    font-family: "Winky Sans", sans-serif;
+    background: linear-gradient(140deg, #e9c46a, #2a9d8f);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-left: 10px;
+}
+
+#ai-response-subject{
+    font-size: 17px;
+    font-family: "Winky Sans", sans-serif;
+    background: linear-gradient(140deg, #e9c46a, #2a9d8f);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-left: 10px;
+}
+
+#ai-response-email{
+    margin-top: 10px;
+}
+
+#email-improvement{
+    font-family: "Winky Sans", sans-serif;
+    width: 100%;
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #fefae0;
+    border-radius: 10px;
+    background-color: #ffccd5;
+    color: #ef233c;
+    display: none;
+}

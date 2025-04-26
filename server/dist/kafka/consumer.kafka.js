@@ -28,7 +28,7 @@ function startKafkaConsumer(kafka) {
                         if (!message.value)
                             return;
                         const AIResponse = yield (0, llm_1.default)(message.value.toString());
-                        socket_1.io.emit("ai-response", AIResponse);
+                        socket_1.io.emit("ai-response", AIResponse === null || AIResponse === void 0 ? void 0 : AIResponse.slice(7, -3));
                     }
                     catch (error) {
                         console.log("Something went wrong in consumer while consuming the message.");

@@ -4,22 +4,53 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <link rel="stylesheet" href="./llm.css" />
     <title>AI mailer</title>
   </head>
   <body>
-    <h1>AI mailer</h1>
-    <form onsubmit="handleValidationAndSendRequest(event)" id="email-form">
-      <div>
-        <p>Receiver email address</p>
-        <input type="text" id="receiver-email" />
+    <div class="page-container">
+      <h1>AI mailer</h1>
+      <div class="instruction-text">
+        <p>
+          Please enter the recipient's email address in the designated email
+          field. In the Mail Topic section, clearly describe the purpose of your
+          email. The more detailed you are such as including your job profile,
+          experience, and specific goals the better the AI can assist you in
+          drafting an accurate and personalized message.
+        </p>
+        <p>
+          <span>Note:</span> You will be shown a preview of the generated email
+          before it is sent, so don’t worry you’ll have the chance to review and
+          make any changes if needed.
+        </p>
       </div>
-      <div>
-        <p>Mail topic</p>
-        <input type="text" id="mail-topic" />
+      <form onsubmit="handleValidationAndSendRequest(event)" id="email-form">
+        <div class="form-input-field">
+          <label>Receiver email address</label>
+          <input type="text" id="receiver-email" />
+        </div>
+        <div class="form-input-field">
+          <label>Mail topic</label>
+          <textarea id="mail-topic"></textarea>
+        </div>
+        <button type="submit">Process</button>
+      </form>
+      <div id="ai-response-container">
+        <div class="response">
+          <div class="cancel-icon">
+            <button>Send</button
+            ><button onclick="handleCloseAIResponseWindow()">Re-Generate</button>
+          </div>
+          <p id="status"></p>
+          <div id="ai-response">
+            <p class="response-text">Send To:<span id="ai-response-sendTo"></span></p>
+            <p class="response-text">Subject:<span id="ai-response-subject"></span></p>
+            <p id="ai-response-email"></p>
+          </div>
+          <div id="email-improvement"></div>
+        </div>
       </div>
-      <button type="submit">Process</button>
-    </form>
-    <p id="ai-response">AI response will be here</p>
-    <script src="./index.js"></script>
+    </div>
+    <script src="./llm.js"></script>
   </body>
 </html>

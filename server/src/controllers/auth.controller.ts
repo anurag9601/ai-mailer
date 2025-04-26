@@ -1,4 +1,4 @@
-import e, { Request, Response } from "express";
+import { Request, Response } from "express";
 import prismaClient from "../db";
 import { encrypt } from "../services/crypto";
 
@@ -33,9 +33,6 @@ export async function userRegistration(req: Request, res: Response) {
         const encryptedData = encrypt(JSON.stringify(payload));
 
         res.cookie("_Auth", encryptedData, {
-            httpOnly: true,      
-            secure: false,      
-            sameSite: "lax",
             maxAge: 15 * 24 * 60 * 60 * 1000
         });
 

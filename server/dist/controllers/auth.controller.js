@@ -41,9 +41,6 @@ function userRegistration(req, res) {
             };
             const encryptedData = (0, crypto_1.encrypt)(JSON.stringify(payload));
             res.cookie("_Auth", encryptedData, {
-                httpOnly: true,
-                secure: false,
-                sameSite: "lax",
                 maxAge: 15 * 24 * 60 * 60 * 1000
             });
             res.status(201).json({ success: true });

@@ -21,7 +21,7 @@ export default async function startKafkaConsumer(kafka: Kafka) {
 
                     const AIResponse = await AITextGeneration(message.value.toString() as string);
 
-                    io.emit("ai-response", AIResponse);
+                    io.emit("ai-response", AIResponse?.slice(7,-3));
                 } catch (error) {
                     console.log("Something went wrong in consumer while consuming the message.");
                     pause();
