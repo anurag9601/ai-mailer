@@ -25,11 +25,11 @@ function connectKafkaAdmin(kafka) {
                 ],
             });
         }
-        if (!existingTopics.includes("user-registration")) {
+        if (!existingTopics.includes("send-email")) {
             yield admin.createTopics({
                 topics: [
                     {
-                        topic: "user-registration",
+                        topic: "send-email",
                         numPartitions: 1,
                     }
                 ]

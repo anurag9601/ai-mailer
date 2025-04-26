@@ -20,12 +20,7 @@ const socket = io("http://localhost:3000");
 
 const emailRex = /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/;
 
-let AIEmailResponse = `{
-  "sendTo": "anuragmishrap13@gmail.com",
-  "subject": "Leave Application - Unable to come to office due to fever",
-  "sendMail": "Dear Boss,\\n\\nI am writing to inform you that I am unable to come to the office today due to a fever. I woke up this morning feeling unwell and don't think I will be able to perform my duties effectively.\\n\\nI will monitor my symptoms and keep you updated on my condition. I will also check my email periodically for any urgent matters.\\n\\nThank you for your understanding.\\n\\nSincerely,\\nYour Name",
-  "improvement": "Consider specifying how long you expect to be out of the office, if known, and if you have completed any urgent tasks before your leave."
-}`;
+let AIEmailResponse = null;
 
 function getCookie(name) {
   const cookies = document.cookie.split("; ");
@@ -44,13 +39,14 @@ if (isUserAuthorized === null) {
 
 async function handleSendRequest(receiverEmail, mailTopic) {
   try {
-    const request = await fetch("http://localhost:3000/api/email/send", {
+    const request = await fetch("http://localhost:3000/api/email/generate", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         sendTo: receiverEmail,
         topic: mailTopic,
       }),
+      credentials: "include",
     });
 
     const response = await request.json();
@@ -84,6 +80,9 @@ async function handleSendRequest(receiverEmail, mailTopic) {
   } catch (error) {
     console.log(`Something went wrong ${error}`);
     alert("Something went wrong try again!! 🚀");
+    if (isUserAuthorized === null) {
+      window.location.href = "/index.html";
+    }
   }
 }
 
@@ -112,4 +111,36 @@ function handleCloseAIResponseWindow() {
   aiResponseContainer.style.display = "none";
   aiResponse.style.display = "none";
   aiSuggestion.style.display = "none";
+  AIEmailResponse = null;
+}
+
+async function handleSendEmail() {
+  if (AIEmailResponse === null) return;
+
+  try {
+    const request = await fetch("http://localhost:3000/api/email/send", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: AIEmailResponse,
+      credentials: "include",
+    });
+
+    const response = await request.json();
+
+    if (response.success === true) {
+      socket.on("mail-sent-status", (msg) => {
+        alert(msg);
+      });
+
+      handleCloseAIResponseWindow();
+
+      receiverEmail.value = "";
+
+      mailTopic.value = "";
+    }
+  } catch (error) {
+    if (isUserAuthorized === null) {
+      window.location.href = "/index.html";
+    }
+  }
 }

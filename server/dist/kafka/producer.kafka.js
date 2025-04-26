@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.connectProducer = connectProducer;
 exports.producerWork = producerWork;
+exports.emailSendWorkProducer = emailSendWorkProducer;
 const kafka_1 = require("./kafka");
 let producer = null;
 function connectProducer() {
@@ -37,6 +38,21 @@ function producerWork(key, work) {
                 messages: [{ key, value: work }],
             });
             console.log("Kafka producer sent message successfully ✅.");
+        }
+        else {
+            console.log("Kafka producer is not available 💥.");
+        }
+    });
+}
+function emailSendWorkProducer(work) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const producer = yield connectProducer();
+        if (producer) {
+            yield producer.send({
+                topic: "send-email",
+                messages: [{ key: "email-send-work", value: JSON.stringify(work) }],
+            });
+            console.log("Kafka producer sent email-send message successfully ✅.");
         }
         else {
             console.log("Kafka producer is not available 💥.");

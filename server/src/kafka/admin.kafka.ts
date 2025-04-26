@@ -18,11 +18,11 @@ export async function connectKafkaAdmin(kafka: Kafka) {
         });
     }
 
-    if (!existingTopics.includes("user-registration")) {
+    if (!existingTopics.includes("send-email")) {
         await admin.createTopics({
             topics: [
                 {
-                    topic: "user-registration",
+                    topic: "send-email",
                     numPartitions: 1,
                 }
             ]
